@@ -1,0 +1,299 @@
+html,body{
+    height: 100%
+}
+.huuy {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    -webkit-background-size: 100% auto;
+    background-size: 100% auto;
+    min-height: 100%;
+    position: relative;
+}
+
+.Winning {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    padding: .5rem 0;
+    color: #fff;
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.ui-wrapper {
+    width: 6.15rem;
+    height: 12.4rem;
+    float: none;
+    z-index: 10;
+    padding: 0px;
+    cursor: move;
+    margin: 0 auto;
+    margin-top: 3rem
+}
+
+#resule-status-lots {
+    width: 6.15rem;
+    height: 12.4rem;
+    display: block;
+}
+
+#resule-status-lotsHand {
+    top: 17.9rem;
+    left: 4.5rem;
+    cursor: move;
+    position: absolute;
+    z-index: 10;
+}
+
+.shakeHand {
+    width: 2.225rem;
+    height: 2.825rem;
+    background: url(../../static/img/shakeImg.png) center no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-animation: lotsShake 2s ease 0s infinite forwards;
+    -moz-animation: lotsShake 2s ease 0s infinite forwards;
+    -o-animation: lotsShake 2s ease 0s infinite forwards;
+    animation: lotsShake 2s ease 0s infinite forwards;
+}
+
+.shakeTxt {
+    width: 3.6rem;
+    height: .975rem;
+    background: url(../../static/img/shakeTxt.png) center no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: .25rem;
+}
+
+@-webkit-keyframes lotsShake {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1)
+    }
+    10%,
+    20% {
+        -webkit-transform: rotate3d(0, 0, 1, -10deg)
+    }
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: rotate3d(0, 0, 1, 10deg)
+    }
+    40%,
+    60%,
+    80% {
+        -webkit-transform: rotate3d(0, 0, 1, -10deg)
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1)
+    }
+}
+@-moz-keyframes lotsShake {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1)
+    }z-inde
+    10%,
+    20% {
+        -webkit-transform: rotate3d(0, 0, 1, -10deg)
+    }
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: rotate3d(0, 0, 1, 10deg)
+    }
+    40%,
+    60%,
+    80% {
+        -webkit-transform: rotate3d(0, 0, 1, -10deg)
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1)
+    }
+}
+@-o-keyframes lotsShake {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1)
+    }
+    10%,
+    20% {
+        -webkit-transform: rotate3d(0, 0, 1, -10deg)
+    }
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: rotate3d(0, 0, 1, 10deg)
+    }
+    40%,
+    60%,
+    80% {
+        -webkit-transform: rotate3d(0, 0, 1, -10deg)
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1)
+    }
+}
+.Winnpage{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    padding: .5rem 0;
+    color: #fff;
+    z-index: 9;
+    background:rgba(0, 0, 0,.85);
+    display: none;   
+}
+.resule-bgLight {
+    top: .5rem;
+    width: 16rem;
+    height: 16rem;
+    margin: 0 auto;
+    background-image: url(../../static/img/light.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    margin-left: -8rem;
+    animation: bgRotate 6s linear infinite;
+    -webkit-animation: bgRotate 6s linear infinite;
+    -moz-animation: bgRotate 6s linear infinite;
+    -o-animation: bgRotate 6s linear infinite;
+}
+@-webkit-keyframes bgRotate{
+    from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}
+}
+@-o-keyframes bgRotate{
+    from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}
+}
+@-moz-keyframes bgRotate{
+    from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}
+}
+#luckContainer{
+    position: absolute;
+    width: 100%;
+    z-index: 250;
+    padding-bottom: 0px;
+    top:4rem;
+}
+#resule-gift-luck {
+    width: 100%;
+    font-size: .9rem;
+    line-height: 1.2rem;
+    text-align:center;
+}
+#resule-gift-sucImg{
+    width: 5.6rem; 
+    height: 6rem; 
+    margin: 0 auto;
+    margin-top: .5rem;
+    opacity: 1;
+}
+#resule-gift-rank{
+    font-size: .95rem;
+    line-height: 1.65rem;
+    color: #ffdb12;
+    text-align: center;
+    padding-top: 2rem;
+}
+#resule-gift-goods{
+    font-size: .95rem;
+    line-height: 1rem;
+    text-align: center;
+    padding-top: .5rem   
+}
+.buttonContent{
+    width: 10rem;
+    height: 2rem;
+    line-height: 2rem!important;
+    background: #41bd43;
+    border-radius: .2rem;
+    margin-bottom: .5rem;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    font-size: .7rem;
+}
+.failurepage{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    padding: .5rem 0;
+    color: #fff;
+    z-index: 9;
+    background:rgba(0, 0, 0,.85);
+    display: none;
+}
+.failureimg{
+    width: 11.5rem;
+    height: 10.75rem;
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+.textc{
+    text-align: center;
+    margin-top: 1.5rem;
+}
+.btn1{
+    display: inline-block;
+    width: 10rem;
+    height: 2rem;
+    line-height: 40px;
+    color: #FFF;
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+}
+.btn1{
+    margin-top: .3rem;
+    background: #fe8208;
+    background: #41bd43;
+}
+.wbtz{
+    width: 10rem;
+    height: 2rem;
+    margin: 0 auto;
+    margin-top: 5px
+}
+.wbt1{
+    width: 4.75rem;
+    height: 2rem;
+    background: #fe8208;
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    line-height: 2rem;
+    border-radius: .2rem;
+    color: #fff
+}
+.wbt2{
+    width: 4.75rem;
+    height: 2rem;
+    /*background: #41bd43;*/
+    background: #41bd43;
+    display: inline-block;
+    float: right ;
+    font-size: 14px;
+    line-height: 2rem;
+    border-radius: .2rem;
+    color: #fff
+}

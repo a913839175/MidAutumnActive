@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, width=device-width">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="format-detection" content="telephone=yes" />
+    <link rel="stylesheet" type="text/css" href="static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="static/css/Actkits.css">
+    <script src="static/js/zepto.min.js"></script>
+    <script src="static/js/clipboard.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <title>活动锦囊</title>
+</head>
+<script>
+/* @charset "utf-8";*/
+(function(win) {
+    var g_rem = 20;
+    var docEl = win.document.documentElement,
+        tid;
+
+    function refreshRem1() {
+        g_rem = docEl.getBoundingClientRect().width / 16;
+        !g_rem && (g_rem = 20);
+        docEl.style.fontSize = g_rem + 'px';
+    }
+
+    function refreshRem2() {
+        g_rem = docEl.getBoundingClientRect().width / 16;
+        if (!g_rem) {
+            return refreshRem1();
+        }
+        var width = docEl.getBoundingClientRect().width;
+        var d = win.document.createElement('div');
+        d.style.width = '1rem';
+        d.style.display = "none";
+        docEl.firstElementChild.appendChild(d);
+        var defaultFontSize = parseFloat(window.getComputedStyle(d, null).getPropertyValue('width'));
+        docEl.firstElementChild.removeChild(d);
+        docEl.style.fontSize = (g_rem / defaultFontSize) * 100 + '%';
+    }
+    var refreshRem = /HUAWEI TIT-TL00/i.test(navigator.userAgent) ? refreshRem2 : refreshRem1;
+    win.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+            clearTimeout(tid);
+            tid = setTimeout(refreshRem, 100);
+        }
+    }, false);
+    refreshRem();
+})(window);
+// (function(){
+//     var mql = window.matchMedia("(orientation: portrait)");
+//     function onMatchMeidaChange(mql){
+//         if(mql.matches) {
+//             // alert('shu')
+//         }else {
+//             alert('请切换成竖屏进行游戏')
+//         }
+//     }
+//     onMatchMeidaChange(mql);
+//     mql.addListener(onMatchMeidaChange);
+// })();
+</script>
+
+<body>
+    <div class="shu"></div>
+    <div class="huuy">
+        <div id="poupInfoBox" class="regPage retrans" style="display: block;">
+            <div class="poupHead">
+                <div class="poupTitleBox clearfix">
+                    <div id="actionExpBtn" class="poupTitleMune checked" style="width: 4.41667rem;">
+                        <div class="item">活动说明</div>
+                    </div>
+                    <div id="ranBtn" class="poupTitleMune" style="width: 4.41667rem;">
+                        <div class="item">排行榜</div>
+                    </div>
+                    <div id="prizeBtn" class="poupTitleMune" style="width: 4.41667rem;">
+                        <div class="item">我的奖品<span id="Award_Round_Dot" class="redDot hide" style="display: inline;"></span></div>
+                    </div>
+                    <div class="poupSlideBar">
+                        <div class="slideBarTip transitionPanel" style="width: 4.41667rem;left: 0.6rem;"></div>
+                    </div>
+                </div>
+                <div class="poupClose Closeone"></div>
+                <div style="clear:both; height:0"></div>
+            </div>
+            <div id="popTabBox" class="popTabBox transitionPanel clearfix">
+                <div id="ruleBox" class="poupMain poupMain0" style="display: block;">
+                    <div class="poupMainInfo">
+                        <div id="awardLine" class="poupLine layerId-14 defBgColor" style="cursor: pointer;">
+                            <div class="mainTitle">活动奖品</div>
+                            <div id="awardLineBox">
+                                <div class="unComfortLine awardItem "><span class="awardStyle">端午礼包</span> : <span class="award">0.15%加息红包</span></div>
+                            </div>
+                        </div>
+                        <div id="gameDateTime" class="poupLine layerId-16 defBgColor" style="cursor: pointer;">
+                            <div class="mainTitle">活动时间</div>
+                            <p><span id="startDate">2018年6月15日 00:00</span>&nbsp;-&nbsp;<span id="endDate">2018年6月20日 23:59</span></p>
+                        </div>
+                        <div class="hostLine poupLine layerId-19 defBgColor" style="cursor: pointer;">
+                            <div class="mainTitle">主办单位</div>
+                            <p>本次活动主办单位为 <a class="hostName" onclick="return false" href="http://www.weipaidai.com/">-微拍贷</a></p>
+                        </div>
+                        <div id="skillLine" class="skillLine poupLine layerId-20 defBgColor" style="min-height: 1rem; cursor: pointer;">
+                            <div class="skillCont">
+                                <div class="mainTitle">技术支持</div>
+                                <p>页面技术由 <a class="skillName" onclick="return false" href="http://www.weipaidai.com/">微拍贷</a> 提供，技术支持方仅提供页面技术，不承担由活动引起的相关法律责任</p>
+                            </div>
+                        </div>
+                        <div id="explainBox" class="poupLine layerId-17 defBgColor" style="cursor: pointer;">
+                            <div class="mainTitle">活动说明</div>
+                            <p id="explaiDrawInfoBox" class="">
+                                <span id="haveScore">达到 <span id="scoreLimit" class="scoreLimit">350</span><span class="gameScoreUnit">分</span><span id="exlainDrawFont">即可获得抽奖机会，</span></span>
+                                <span id="directDrawInfoBox" class="">
+                            <span class="drawTotalFont" style="display: none;">活动期间总抽奖机会共 <span id="totalDrawTimeLimit">6</span> 次，1天只能抽</span><span class="everyOneFont hide" style="display: inline;">每人<span class="dayFont">每日</span>有</span> <span id="drawTimesLimit">3</span> 次<span class="chanceFont hide" style="display: inline;">抽奖机会</span>。
+                                <br>
+                                </span>
+                            </p>
+                            <div id="exlainInfo">把行走的粽子拖到下方，不要被筷子夹走哦！</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="rankBox" class="poupMain poupMain1">
+                    <div class="poupMainInfo">
+                        <div id="rankMain" class="getRankHeight hide" style="display: block;">
+                            <div style="margin-top:0.7rem;margin-left: 0.25rem;font-size: .6rem;">当前排名：<span id="rank"></span> （只显示前<span id="showRankNum">100</span>名）</div>
+                            <div style="padding:0rem 0.5rem">
+                                <table class="rankTable" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                        <tr style="line-height: 1rem;">
+                                            <th>排行</th>
+                                            <th>头像</th>
+                                            <th>昵称</th>
+                                            <th>成绩</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="rankHeight">
+                            <table id="rankInfoBox" class="rankTable" cellspacing="0" cellpadding="0" style="margin-top: 0;">
+                                <tbody>
+                                    <tr class="rankInfo">
+                                        <td>No.1</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">magazine</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.2</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">hubert</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.3</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">lvox</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.4</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">hth</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.5</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">monica</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.6</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">lzz</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.7</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">william</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.8</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">sinki</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.9</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">weiqizhou</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.10</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">candyq</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.11</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">jarvis</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.12</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">johnvi</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.13</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">tomato</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                    <tr class="rankInfo">
+                                        <td>No.14</td>
+                                        <td>
+                                            <div class="userImg manImg"></div>
+                                        </td>
+                                        <td class="userName">tina</td>
+                                        <td>999<span class="scoreUnit">分</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="awardBox" class="poupMain poupMain2">
+                    <div id="awardInfoBox">
+                        <div id="awardInfo">
+                            <div class="codeInfoBox">
+                                <div class="goDetailIcon"></div>
+                                <div class="djqImgBox"></div>
+                                <div class="isEmptyAward ellipsis" style="width: 11rem;margin-left:0.6rem;font-size:0.7rem;"><span class="awardStyle">端午礼包</span>：<span class="awardName">0.15%加息红包</span></div>
+                                <div class="noPartnersBox">
+                                    <div class="codeperiod" style="margin: 0.25rem 0.6rem;line-height:1.4rem;"><span class="awardTypeName">兑奖期限</span>：<span class="awardBgTime">2018.06.15</span> 至 <span class="awardEndTime">2018.06.20</span></div>
+                                    <div style="color: #ecb208;margin-left:0.6rem;">未核销</div>
+                                </div>
+                            </div>
+                            <div class="codeInfoBox">
+                                <div class="goDetailIcon"></div>
+                                <div class="djqImgBox"></div>
+                                <div class="isEmptyAward ellipsis" style="width: 11rem;margin-left:0.6rem;font-size:0.7rem;"><span class="awardStyle">端午礼包</span>：<span class="awardName">0.15%加息红包</span></div>
+                                <div class="noPartnersBox">
+                                    <div class="codeperiod" style="margin: 0.25rem 0.6rem;line-height:1.4rem;"><span class="awardTypeName">兑奖期限</span>：<span class="awardBgTime">2018.06.15</span> 至 <span class="awardEndTime">2018.06.20</span></div>
+                                    <div style="color: #ecb208;margin-left:0.6rem;">未核销</div>
+                                </div>
+                            </div>
+                            <div class="codeInfoBox">
+                                <div class="goDetailIcon"></div>
+                                <div class="djqImgBox"></div>
+                                <div class="isEmptyAward ellipsis" style="width: 11rem;margin-left:0.6rem;font-size:0.7rem;"><span class="awardStyle">端午礼包</span>：<span class="awardName">0.15%加息红包</span></div>
+                                <div class="noPartnersBox">
+                                    <div class="codeperiod" style="margin: 0.25rem 0.6rem;line-height:1.4rem;"><span class="awardTypeName">兑奖期限</span>：<span class="awardBgTime">2018.06.15</span> 至 <span class="awardEndTime">2018.06.20</span></div>
+                                    <div style="color: #ecb208;margin-left:0.6rem;">未核销</div>
+                                </div>
+                            </div>
+                            <div class="codeInfoBox">
+                                <div class="goDetailIcon"></div>
+                                <div class="djqImgBox"></div>
+                                <div class="isEmptyAward ellipsis" style="width: 11rem;margin-left:0.6rem;font-size:0.7rem;"><span class="awardStyle">端午礼包</span>：<span class="awardName">0.15%加息红包</span></div>
+                                <div class="noPartnersBox">
+                                    <div class="codeperiod" style="margin: 0.25rem 0.6rem;line-height:1.4rem;"><span class="awardTypeName">兑奖期限</span>：<span class="awardBgTime">2018.06.15</span> 至 <span class="awardEndTime">2018.06.20</span></div>
+                                    <div style="color: #ecb208;margin-left:0.6rem;">未核销</div>
+                                </div>
+                            </div>
+                            <div class="codeInfoBox">
+                                <div class="goDetailIcon"></div>
+                                <div class="djqImgBox"></div>
+                                <div class="isEmptyAward ellipsis" style="width: 11rem;margin-left:0.6rem;font-size:0.7rem;"><span class="awardStyle">端午礼包</span>：<span class="awardName">0.15%加息红包</span></div>
+                                <div class="noPartnersBox">
+                                    <div class="codeperiod" style="margin: 0.25rem 0.6rem;line-height:1.4rem;"><span class="awardTypeName">兑奖期限</span>：<span class="awardBgTime">2018.06.15</span> 至 <span class="awardEndTime">2018.06.20</span></div>
+                                    <div style="color: #ecb208;margin-left:0.6rem;">未核销</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="awardDetailBox" class="poupMain bg hide isAngular" style="display: none;">
+            <div id="awardDetailScrollBox">
+                <div class="awardCloseIcon"></div>
+                <div class="awardDetail">
+                    <div class="hostName" style="padding: 0.7rem 2.2rem 1rem 0.7rem;text-align: left;color:#fff;word-break: break-word">-微拍贷</div>
+                    <div class="awardName layerId-27 defBgColor" style="cursor: pointer; position: relative;">0.15%加息红包</div>
+                    <div class="awardSubTitle layerId-28 defBgColor" style="cursor: pointer; position: relative;">适用于所有产品</div>
+                    <div class="awardCodeTime codeTimeFixedRange layerId-6 defBgColor" style="cursor: pointer; position: relative;"><em>兑奖期限</em>：<span class="codeBgTime">2018.06.15</span> - <span class="codeEndTime">2018.06.20</span></div>
+                    <div class="codeTimeFixedTerm hide layerId-7 defBgColor" style="display: none;">中奖后<span class="codeBgTime">当</span>天生效，有效天数<span class="codeEndTime">30</span>天</div>
+                    <div></div>
+                    <div class="awardDetailWarp"></div>
+                </div>
+                <div class="codeImgBox">
+                    <div id="-">
+                        <div class="codeLine"><span id="codeName">兑奖码</span>：<span style=" max-width: 8.7rem;word-wrap: break-word;display: inline-block; vertical-align: middle;" class="code selectText" id="copyjuan">8888881</span><span class="copy" data-clipboard-target="#copyjuan">复制券码</span></div>
+                        <div class="codeOptInfo layerId-34 defBgColor" style="cursor: pointer; position: relative;">凭券联系客服兑奖</div>
+                        <div class="codeOptInfo_Gift" style="display: none;">凭券联系客服兑奖</div>
+                        <div class="redPacketTip hide"></div>
+                    </div>
+                </div>
+                <div class="awardBtnList">
+                    <div style="height:0.4rem;"></div>
+                    <!--兑奖券详情弹出层 -->
+                    <div id="ticketDetailBox">
+                        <p class="ticketitle"><span class="text">兑奖券详情</span></p>
+                        <div class="ticketInfo">
+                            <div class="itemList dateLine codeTimeFixedRange layerId-8 defBgColor" style="cursor: pointer; position: relative;">
+                                <div class="title">有效日期</div>
+                                <div class="box">
+                                    <span class="beginTime">2018-06-15</span>至<span class="endTime">2018-06-20</span>
+                                </div>
+                            </div>
+                            <div class="itemList dateLine codeTimeFixedTerm hide layerId-9 defBgColor" style="display: none;">
+                                <div class="title">有效日期</div>
+                                <div class="box">
+                                    中奖后<span class="codeBgTime">当</span>天生效，有效天数<span class="codeEndTime">30</span>天
+                                </div>
+                            </div>
+                            <div class="itemList timelimitLine layerId-29 defBgColor" style="cursor: pointer; position: relative;">
+                                <div class="title">可用时段</div>
+                                <div class="box">
+                                    <div class="timelimit">周一至周日</div>
+                                </div>
+                            </div>
+                            <div class="itemList addressLine layerId-30 defBgColor" style="cursor: pointer; position: relative;">
+                                <div class="title titleAdress">兑奖地址</div>
+                                <div class="box">
+                                    <div class="address">400-887-8288</div>
+                                </div>
+                            </div>
+                            <div class="itemList noticeLine layerId-31 defBgColor" style="cursor: pointer; position: relative;">
+                                <div class="title titleNotice">兑奖须知</div>
+                                <div class="box">
+                                    <div class="notice">
+                                        <p style="word-wrap: break-word;">1、获奖后请填写姓名及兑奖手机号，我们将按照您填写的手机号进行发奖，一定要填写实名注册过微拍贷账号的手机号哦！
+                                            <br>或者您想把好运送给您的好友，可以在中奖后填写您好友的手机号【注意：由于系统限制，若您多次中奖，将默认调用您第一次填写的信息。如果您想把好运送给不同好友，凭兑奖码于中奖当天联系客服400-887-8288登记（奖品将不定期发放，请在中奖后的第一时间确认收取礼品的信息）】
+                                            <br>2、邀请好友参加，还能额外获得抽奖机会哦！好友多多，中奖机会多多！
+                                            <br>3、法律允许范围内，微拍贷保留本活动最终解释权。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:0.4rem;"></div>
+                    <a style="text-decoration:none;">
+                        <div class="servicePhone awardDetailBtn layerId-35 defBgColor"><span class="text">客服电话</span><a href="tel:400-887-8288" class="phoneIcon"></a><span class="phoneText">400-887-8288</span></div>
+                    </a>
+                    <div style="height:3.15rem;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="attentionBox">
+            <div class="menuBtnBox layerId-24 defBgColor" style="cursor: pointer; ">
+                <a class="menuName">关注我们</a>
+            </div>
+        </div>
+        <!-- 关注二维码 -->
+        <div class="masklayer">
+            <img src="./static/img/download.jpg" class="downloadjpg">
+            <div class="maskClose"></div>
+        </div>
+    </div>
+</body> 
+<script src="static/js/Actkits.js"></script>
+
+</html>
